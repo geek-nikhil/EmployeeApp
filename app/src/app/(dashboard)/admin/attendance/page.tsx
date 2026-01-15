@@ -1,6 +1,5 @@
 
-import { createServerClient } from '@supabase/ssr'
-import { cookies } from 'next/headers'
+import { createClient } from '@/lib/supabase-server'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { format } from 'date-fns'
 import { Input } from '@/components/ui/input'
@@ -12,12 +11,8 @@ export default async function AdminAttendancePage({
 }: {
     searchParams: { date?: string }
 }) {
-    const cookieStore = await cookies()
-    const supabase = createServerClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-        { cookies: { get: (name) => cookieStore.get(name)?.value } }
-    )
+    const supabase = await createClient()
+
 
     const dateFilter = searchParams.date || new Date().toISOString().split('T')[0]
 

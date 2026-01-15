@@ -1,17 +1,12 @@
 
-import { createServerClient } from '@supabase/ssr'
-import { cookies } from 'next/headers'
+import { createClient } from '@/lib/supabase-server'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { LeaveActions } from '@/components/admin/leave-actions'
 import { format } from 'date-fns'
 
 export default async function AdminLeavesPage() {
-    const cookieStore = await cookies()
-    const supabase = createServerClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-        { cookies: { get: (name) => cookieStore.get(name)?.value } }
-    )
+    const supabase = await createClient()
+
 
     // Fetch all pending requests + user info
     const { data: requests, error } = await supabase
