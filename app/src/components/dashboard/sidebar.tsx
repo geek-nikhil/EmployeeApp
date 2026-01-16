@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { LogOut, User as UserIcon, Calendar, ClipboardList, LayoutDashboard } from "lucide-react"
+import { LogOut, User as UserIcon, Calendar, ClipboardList, LayoutDashboard, Users } from "lucide-react"
 import { cn } from "@/utils/cn"
 import { signOut } from "@/app/actions/auth"
 
@@ -55,7 +55,8 @@ export function Sidebar({ user }: SidebarProps) {
                 )}
                 {isAdmin && (
                     <>
-                        <NavLink href="/admin" icon={UserIcon} label="Overview" active={isActive('/admin')} />
+                        <NavLink href="/admin" icon={LayoutDashboard} label="Overview" active={isActive('/admin')} />
+                        <NavLink href="/admin/employees" icon={Users} label="Employees" active={isActive('/admin/employees')} />
                         <NavLink href="/admin/leaves" icon={Calendar} label="Leaves" active={isActive('/admin/leaves')} />
                         <NavLink href="/admin/attendance" icon={ClipboardList} label="Attendance" active={isActive('/admin/attendance')} />
                     </>
